@@ -1,0 +1,15 @@
+# LINE Messaging API に Ubuntu ターミナルにする
+
+## Feature
+
+- LINE Bot を用いてチャットを Bash で実行した結果をリプライする
+- Docker をサンドボックスとして使用
+- Available here: [https://line.me/R/ti/p/%40114gaerp](https://line.me/R/ti/p/%40114gaerp)
+
+## デプロイ方法
+
+1. サーバー等にこのリポジトリを clone する
+1. `.env`に LINE Developers から取得した「チャネルアクセストークン」、「チャネルシークレット」を記述する。
+1. docker をインストールし、`docker-compose up` を実行  
+   `http://localhost:8000/messaging_api/handle_request`で FastApi が起動する
+1. SSL 化を行い、LINE Developers に Web Hook を設定する。
