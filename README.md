@@ -1,4 +1,4 @@
-# LINE Messaging API に Ubuntu ターミナルにする
+# LINE Messaging API を Ubuntu ターミナルにする
 
 ## Feature
 
