@@ -1,17 +1,17 @@
-version: '3.2'
+version: "3.2"
 services:
   host:
-    name: host
     build:
       context: .
       dockerfile: host.Dockerfile
+    tty: true
     volumes:
       - type: "bind"
         source: "/var/run/docker.sock"
         target: "/var/run/docker.sock"
-  
+
   sandbox:
-    name: sandbox
     build:
       context: .
       dockerfile: sandbox.Dockerfile
+    image: ${sandbox_image_name}

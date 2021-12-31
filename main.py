@@ -1,5 +1,8 @@
 # %%
 import docker
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 class DockerEnv:
@@ -7,10 +10,9 @@ class DockerEnv:
 
     def start(self):
         client = docker.from_env()
+        image_name = os.getenv('sandbox_image_name')
         self.container = client.containers.run(
-            "ubuntu", "/bin/bash", remove=True, detach=True, tty=True)
-        self.container.exec_run("adduser user")
-        self.container.exec_run("echo y | unminimize")
+            image_name , "/bin/bash", remove=True, detach=True, tty=True)
 
     def __init__(self):
         self.start()
