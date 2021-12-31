@@ -3,11 +3,14 @@ from linebot import WebhookParser
 from linebot.models import TextMessage
 from aiolinebot import AioLineBotApi
 import main
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # APIクライアントとパーサーをインスタンス化
 line_api = AioLineBotApi(
-    channel_access_token="RDpXRWqcZUa5ijiI0uc3OsevO6hMZ31YWf6rrbn5IqxPewu5OnSzOPAkPoiV1mw21PmYh8nYerLlRUwU0ikdvFMWy7Zw8Gfpx3xEwBYW5aBAE9/L1B5hJyoKjW8gEC4TAFLN4AI0JjLAkashl/KYDgdB04t89/1O/w1cDnyilFU=")
-parser = WebhookParser(channel_secret="2bf8f65f2d64f35dda75ec5dedd57dd2")
+    channel_access_token=os.getenv('channel_access_token'))
+parser = WebhookParser(channel_secret=os.getenv('channel_secret'))
 
 # FastAPIの起動
 app = FastAPI()
@@ -15,6 +18,7 @@ app = FastAPI()
 dockerenv = main.DockerEnv()
 
 # 🌟イベント処理（新規追加）
+
 
 async def handle_events(events):
     for ev in events:
