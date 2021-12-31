@@ -22,27 +22,13 @@ class DockerEnv:
             exec_res = self.container.exec_run(
                 "bash -c '" + cmd + "'", user="user")
         except docker.errors.APIError as e:
-            print("コンテナが起動していません。再起動中です。")
+            return "コンテナが起動していません。再起動中です。"
             self.start()
             return
         if(exec_res.exit_code == 0):
-            print("成功しました")
-            print(exec_res.output.decode("utf-8"))
+            return exec_res.output.decode("utf-8").rstrip('\n')
         else:
-            print("失敗しました")
-            print(exec_res.output.decode("utf-8"))
+            return exec_res.output.decode("utf-8").rstrip('\n')
 
     def stop(self):
         self.container.stop()
-
-
-# %%
-dockerenv = DockerEnv()
-# %%
-#dockerenv.exec("set -o pipefail")
-#dockerenv.exec("echo yes | unminimize")
-# dockerenv.stop()
-# %%
-dockerenv.exec("man db")
-
-# %%

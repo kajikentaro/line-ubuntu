@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request, BackgroundTasks  # 🌟BackgroundTasksを�
 from linebot import WebhookParser
 from linebot.models import TextMessage
 from aiolinebot import AioLineBotApi
+import main
 
 # APIクライアントとパーサーをインスタンス化
 line_api = AioLineBotApi(
@@ -11,15 +12,16 @@ parser = WebhookParser(channel_secret="2bf8f65f2d64f35dda75ec5dedd57dd2")
 # FastAPIの起動
 app = FastAPI()
 
-# 🌟イベント処理（新規追加）
+dockerenv = main.DockerEnv()
 
+# 🌟イベント処理（新規追加）
 
 async def handle_events(events):
     for ev in events:
         try:
             await line_api.reply_message_async(
                 ev.reply_token,
-                TextMessage(text=f"You said: {ev.message.text}"))
+                TextMessage(text=dockerenv.exec(ev.message.text)))
         except Exception:
             # エラーログ書いたりする
             pass

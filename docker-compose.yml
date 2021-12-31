@@ -5,6 +5,8 @@ services:
       context: .
       dockerfile: host.Dockerfile
     tty: true
+    ports:
+      - 8000:8000
     volumes:
       - type: "bind"
         source: "/var/run/docker.sock"

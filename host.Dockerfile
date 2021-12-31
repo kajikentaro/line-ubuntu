@@ -9,6 +9,8 @@ RUN apt-get install -y docker-ce docker-ce-cli containerd.io
 
 RUN apt-get install -y pip
 RUN pip install python-dotenv docker
+RUN pip install fastapi uvicorn aiolinebot
 
 WORKDIR /app
-copy . .
+COPY . .
+CMD ["uvicorn", "run:app", "--reload", "--host", "0.0.0.0"]
