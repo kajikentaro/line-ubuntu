@@ -22,9 +22,8 @@ class DockerEnv:
             exec_res = self.container.exec_run(
                 "bash -c '" + cmd + "'", user="user")
         except docker.errors.APIError as e:
-            return "コンテナが起動していません。再起動中です。"
             self.start()
-            return
+            return "コンテナが起動していません。再起動中です。"
         if(exec_res.exit_code == 0):
             return exec_res.output.decode("utf-8").rstrip('\n')
         else:

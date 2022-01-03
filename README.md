@@ -8,7 +8,7 @@
 ## デプロイ方法
 
 1. サーバー等にこのリポジトリを clone する
-1. `.env`に LINE Developers から取得した「チャネルアクセストークン」、「チャネルシークレット」を記述する。
+1. `.env.template`を`.env`にコピーし LINE Developers から取得した「チャネルアクセストークン」、「チャネルシークレット」を記述する。
 1. docker をインストールし、`docker-compose up` を実行  
    `http://localhost:8000/messaging_api/handle_request`で FastApi が起動する
 1. SSL 化を行い、LINE Developers に Web Hook を設定する。
