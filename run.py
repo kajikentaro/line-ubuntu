@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request, BackgroundTasks
 from linebot import WebhookParser
 from linebot.models import TextMessage
 from aiolinebot import AioLineBotApi
-import main
+import docker_vm
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -15,7 +15,7 @@ parser = WebhookParser(channel_secret=os.getenv('channel_secret'))
 # FastAPIの起動
 app = FastAPI()
 
-dockerenv = main.DockerEnv()
+dockerenv = docker_vm.DockerEnv()
 
 # 🌟イベント処理（新規追加）
 
