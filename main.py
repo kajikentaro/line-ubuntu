@@ -1,6 +1,7 @@
 # %%
 import docker
 import os
+import tarfile
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -18,16 +19,24 @@ class DockerEnv:
         self.start()
 
     def exec(self, cmd):
-        try:
-            exec_res = self.container.exec_run(
-                "bash -c '" + cmd + "'", user="user")
-        except docker.errors.APIError as e:
-            self.start()
-            return "コンテナが起動していません。再起動中です。"
-        if(exec_res.exit_code == 0):
-            return exec_res.output.decode("utf-8").rstrip('\n')
-        else:
-            return exec_res.output.decode("utf-8").rstrip('\n')
+        F_NAME = "exe.sh"
+        TAR_NAME = "tmp.tar"
+        with open(F_NAME, "w") as file:
+            file.write(cmd)
+
+        with tarfile.open(TAR_NAME, "w") as tar:
+            tar.add(F_NAME)
+        
+        with open(TAR_NAME, "rb") as data:
+            try:
+                self.container.put_archive(path="/", data=data)
+            except docker.errors.APIError as e:
+                self.start()
+                return "コンテナが起動していません。再起動中です。"
+
+        command = "bash /{}".format(F_NAME)
+        exec_res = self.container.exec_run(command, user="user")
+        return exec_res.output.decode("utf-8").rstrip('\n')
 
     def stop(self):
         self.container.stop()

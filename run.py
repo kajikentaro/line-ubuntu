@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, BackgroundTasks  # 🌟BackgroundTasksを追加
+from fastapi import FastAPI, Request, BackgroundTasks
 from linebot import WebhookParser
 from linebot.models import TextMessage
 from aiolinebot import AioLineBotApi
@@ -44,3 +44,5 @@ async def handle_request(request: Request, background_tasks: BackgroundTasks):
 
     # LINEサーバへHTTP応答を返す
     return "ok"
+
+# 参考: https://qiita.com/uezo/items/7fa15f3d77b140190981
